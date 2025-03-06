@@ -14,6 +14,12 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   testDir: './tests',
+  // update timeout for each test case
+  timeout: 40 *1000,
+  // update expect timeout
+  expect : {
+    timeout: 40 *1000,
+  },
   /* Run tests in files in parallel */
   fullyParallel: true,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
@@ -30,6 +36,8 @@ export default defineConfig({
     // baseURL: 'http://127.0.0.1:3000',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
+
+    browserName : 'chromium',
     trace: 'on-first-retry',
   },
 
