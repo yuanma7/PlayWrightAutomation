@@ -15,7 +15,7 @@ import { defineConfig, devices } from '@playwright/test';
 export default defineConfig({
   testDir: './Video14Assignment',
   // update timeout for overall test 
-  timeout: 30 *1000,
+  timeout: 20 *1000,
   // update timeout for expect function
   expect : {
     timeout: 5 *1000,

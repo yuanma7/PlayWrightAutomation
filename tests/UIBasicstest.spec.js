@@ -38,7 +38,7 @@ test.only('Browser Context Playwright Test', async ({browser}) =>
         console.log(await page.locator(".card-body a").nth(0).textContent());
         // step 8, grab all the card titles
         // BUT allTextContents doesn't wait for content to be attached/loaded, it could return 0 element/value, the test still passes
-        // const allTitles = await cardTitles.allTextContents();
+        const allTitles = await cardTitles.allTextContents();
         console.log(allTitles);
     
     });
