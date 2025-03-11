@@ -64,12 +64,16 @@ test.only('Login', async ({browser}) =>
         await password.fill("Test_123");
         await loginBtn.click();
         
-        await page.waitForLoadState('networkidle');
+        // wait for all network calls are completed, not always work
+        //await page.waitForLoadState('networkidle');
 
         console.log(await page.locator(".card-body b").nth(0).textContent());
         console.log (await page.url());
 
-        const titles = await cardTitles.allTextContents();
+        // waitFor() works when there is single ONE element
+        await page.locator(".card-body b").nth(0).waitFor();
+
+        const titles = await page.locator(".card-body b").allTextContents();
         console.log(titles);
     }
 );
