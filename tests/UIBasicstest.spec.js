@@ -1,7 +1,7 @@
 const {test, expect} = require('@playwright/test');
 
 
-test.only('Browser Context Playwright Test', async ({browser}) =>
+test('Browser Context Playwright Test', async ({browser}) =>
     {
         //playwright code
     
@@ -43,17 +43,51 @@ test.only('Browser Context Playwright Test', async ({browser}) =>
     
     });
 
-test('Page Playwright Test', async ({page}) =>
+test('UI Controls', async ({page}) =>
 {
-    //playwright code
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+    const userName = page.locator("#username");
+    const signIn = page.locator("#signInBtn");
 
-    // url for the page
-    await page.goto("https://google.com")
-    // step 1
-    console.log (await page.title());
-    await expect(page).toHaveTitle("Google");
-    // step 2
+    const dropdown = page.locator("select.form-control");
+    await dropdown.selectOption("consult");
+    //await page.pause();
+    await page.locator(".radiotextsty").nth(1).click();
+    await page.locator("#okayBtn").click();
+    // check if the 2nd videobutton is checked
+    console.log(await page.locator(".radiotextsty").nth(1).isChecked());
+    await expect(page.locator(".radiotextsty").nth(1)).toBeChecked();
 
-    // step 3
+    await page.locator("#terms").click();
+    await expect(page.locator("#terms")).toBeChecked();
+    // check when the locater is UNchecked
+    await page.locator("#terms").uncheck();
+    expect(await page.locator("#terms").isChecked()).toBeFalsy();
+
+    // blink test opening a new tab
+    const documentLink = page.locator([href*='documents-request']);
+    await expect(documentLink).toHaveAttribute("class", "blinkingTest");
+
+    await userName.fill("rahulshetty");
+    await page.locator("[type='password']").fill("learning");
+    //await signIn.click();
+
+});
+
+test.only('Child Window handle', async ({browser}) =>
+{
+    const context = await browser.newContext();
+    const page = await context.newPage();
+    await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+
+    const documentLink = page.locator([href*='documents-request']);
+    
+    const [newPage] = Promise.all(
+    [
+        context.waitForEvent('page'),//listen for any new page pending, rejected, fulfilled
+        documentLink.click(),//new page is opened
+    ])// wait for ALL promises in [] are fullfilled, then move on          
+
+
 
 });
