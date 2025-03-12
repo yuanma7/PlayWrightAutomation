@@ -80,13 +80,21 @@ test.only('Child Window handle', async ({browser}) =>
     const page = await context.newPage();
     await page.goto("https://rahulshettyacademy.com/loginpagePractise/");
 
-    const documentLink = page.locator([href*='documents-request']);
+    const documentLink = page.locator("[href*='documents-request']");
     
-    const [newPage] = Promise.all(
+    const [newPage] = await Promise.all(
     [
         context.waitForEvent('page'),//listen for any new page pending, rejected, fulfilled
         documentLink.click(),//new page is opened
-    ])// wait for ALL promises in [] are fullfilled, then move on          
+    ]);// wait for ALL promises in [] are fullfilled, then move on
+    
+    const text = await newPage.locator(".red").textContent();
+
+    const arrayText = text.split("@");
+    const domain = arrayText[1]. split(" ")[0]
+    await page.pause();
+    await page.locator("#username").fill(domain);
+    await page.pause();
 
 
 
