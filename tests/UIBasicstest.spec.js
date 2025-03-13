@@ -74,7 +74,7 @@ test('UI Controls', async ({page}) =>
 
 });
 
-test.only('Child Window handle', async ({browser}) =>
+test('Child Window handle', async ({browser}) =>
 {
     const context = await browser.newContext();
     const page = await context.newPage();
@@ -95,7 +95,5 @@ test.only('Child Window handle', async ({browser}) =>
     await page.pause();
     await page.locator("#username").fill(domain);
     await page.pause();
-
-
 
 });
