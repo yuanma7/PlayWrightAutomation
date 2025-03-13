@@ -65,8 +65,8 @@ test('UI Controls', async ({page}) =>
     expect(await page.locator("#terms").isChecked()).toBeFalsy();
 
     // blink test opening a new tab
-    const documentLink = page.locator([href*='documents-request']);
-    await expect(documentLink).toHaveAttribute("class", "blinkingTest");
+    const documentLink = page.locator("[href*='documents-request']");
+    await expect(documentLink).toHaveAttribute("class", "blinkingText");
 
     await userName.fill("rahulshetty");
     await page.locator("[type='password']").fill("learning");
