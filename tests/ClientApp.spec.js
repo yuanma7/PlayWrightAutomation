@@ -44,7 +44,7 @@ test.skip('Register', async ({browser}) =>
     }
 );
 
-test('Login', async ({browser}) =>
+test.skip('Login', async ({browser}) =>
     {
         //playwright code
     
@@ -76,4 +76,24 @@ test('Login', async ({browser}) =>
         const titles = await page.locator(".card-body b").allTextContents();
         console.log(titles);
     }
+);
+
+test('Client App Login', async ({page})=>
+{
+    const products = page.locator(".card-body b");
+    await page.goto("https://rahulshettyacademy.com/client");
+    const Email = page.locator("#userEmail");
+    const password = page.locator("#userPassword");
+    const loginBtn = page.locator("#login");
+        
+    await Email.fill("mayuanmyra@gmail.com");
+    await password.fill("Test_123");
+    await loginBtn.click();
+    await page.waitForLoadState('networkidle');
+
+    const titles = await page.locator(".card-body b").allTextContents();
+    console.log(titles);   
+
+}
+
 );
