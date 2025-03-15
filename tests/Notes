@@ -1,7 +1,7 @@
 
 Terminal ************
 To run a test file in debug mode -
-npx playwright test tests/UIBasicstest.spec.js --debug
+npx playwright test tests/ClientApp.spec.js --debug
 
 To auto generate playwright code which tracking manual actions -
 npx playwright codegen http://www.google.com
