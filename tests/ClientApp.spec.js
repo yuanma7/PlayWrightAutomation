@@ -158,7 +158,7 @@ test('Client App Login', async ({page})=>
 });
 
 // end to end testing, locators with GetBy
-test.only('@Webst Client App login', async ({ page }) => {
+test('@Webst Client App login', async ({ page }) => {
     //js file- Login js, DashboardPage
     const email = "anshika@gmail.com";
     const productName = 'ZARA COAT 3';

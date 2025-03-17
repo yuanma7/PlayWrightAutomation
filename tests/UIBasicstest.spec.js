@@ -97,3 +97,4 @@ test('Child Window handle', async ({browser}) =>
     await page.pause();
 
 });
+
