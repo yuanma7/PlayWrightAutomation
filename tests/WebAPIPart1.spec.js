@@ -1,7 +1,39 @@
-const {test, expect} = require('@playwright/test');
+const {test, expect, request} = require('@playwright/test');
+const loginPayLoad = {userEmail: "mayuanmyra@gmail.com", userPassword: "Test_123"};
+const orderPayLoad = {
+    orders: [
+      {
+        country: "British Indian Ocean Territory",
+        productOrderedId: "67a8df56c0d3e6622a297ccd"
+      },
+    ]
+  }
+let token;
+let orderId;
 
-test.beforeAll( ()=>
+test.beforeAll( async()=>
 {
+    // login API
+    const apiContext = await request.newContext();
+    const loginResponse = await apiContext.post("https://rahulshettyacademy.com/api/ecom/auth/login", {data: loginPayLoad});
+    await expect(loginResponse.ok()).toBeTruthy();
+    const loginResponseJson = await loginResponse.json();
+    token = await loginResponseJson.token;
+
+    // place an order and get the orderId 
+    const orderResponse = await apiContext.post("https://rahulshettyacademy.com/api/ecom/order/create-order", 
+    {
+        data: orderPayLoad,
+        headers: {
+            'Authorization': token,
+            'Content-Type': 'application/json'
+        },
+    });
+
+    const orderResponseJson = await orderResponse.json();
+    orderId = await orderResponseJson.orders[0];
+    await console.log(orderId);
+    
 
 });
 
@@ -12,63 +44,14 @@ test.beforeEach( ()=>
 
 test('Client App Login', async ({page})=>
     {
-        const productName = 'ZARA COAT 3';
-        const products = page.locator(".card-body");
-        const email = "mayuanmyra@gmail.com"
+        // lauch the window using the token created at test.beforeAll 
+        // a function take the second argument, pass it to the first function, set it as Local Storage value
+        page.addInitScript(value => {
+            window.localStorage.setItem('token', value);
+        }, token);
+
         await page.goto("https://rahulshettyacademy.com/client");
-        const Email = page.locator("#userEmail");
-        const password = page.locator("#userPassword");
-        const loginBtn = page.locator("#login");
-            
-        await Email.fill(email);
-        await password.fill("Test_123");
-        await loginBtn.click();
-        await page.waitForLoadState('networkidle');
-    
-        const titles = await page.locator(".card-body b").allTextContents();
-        console.log(titles);
-    
-        const count = await products.count();
-        for(let i = 0; i< count; ++i)
-        {
-            if(await products.nth(i).locator("b").textContent() === productName)
-            {
-                // add to card
-                await products.nth(i).locator("text=Add To Cart").click();
-                break;
-            }
-        }
-    
-        await page.locator("[routerlink*='cart']").click();
-        await page.locator("div li").first().waitFor();
-        const bool = await page.locator("h3:has-text('ZARA COAT 3')").isVisible();
-        expect(bool).toBeTruthy();
-            
-        await page.locator("text=Checkout").click();
-        await page.locator("[placeholder*='Country']").pressSequentially('ind');
-    
-        const dropdown = page.locator(".ta-results");
-        await dropdown.waitFor();
-    
-        const optionsCount = await dropdown.locator("button").count();
-        for (let i = 0; i< optionsCount; ++i)
-        {
-            const text = await dropdown.locator("button").nth(i).textContent();
-            if(text.trim() === "India")
-            {
-                await dropdown.locator("button").nth(i).click();
-                break;
-            }
-        }
-        
-        await expect(page.locator(".user__name [type='text']").first()).toHaveText(email);
-        await page.locator(".action__submit").click();
-    
-        await expect(page.locator(".hero-primary")).toHaveText(" Thankyou for the order. ");
-    
-        const orderId = await page.locator(".em-spacer-1 .ng-star-inserted").textContent();
-        await console.log(orderId);
-    
+
         //Verify the order ID is displayed in user's orders
         await page.locator("button[routerlink*='myorders']").click();
         await page.locator("tbody").waitFor();
@@ -88,3 +71,5 @@ test('Client App Login', async ({page})=>
     
     });
     
+    // Verify if order created is showing in history page
+    // Preconditiion - create order
