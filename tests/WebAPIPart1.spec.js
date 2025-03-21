@@ -1,4 +1,6 @@
 const {test, expect, request} = require('@playwright/test');
+const {APIUtils} = require('./utils/APIUtils');
+
 const loginPayLoad = {userEmail: "mayuanmyra@gmail.com", userPassword: "Test_123"};
 const orderPayLoad = {
     orders: [
@@ -8,50 +10,30 @@ const orderPayLoad = {
       },
     ]
   }
-let token;
-let orderId;
+let response;
 
 test.beforeAll( async()=>
 {
-    // login API
     const apiContext = await request.newContext();
-    const loginResponse = await apiContext.post("https://rahulshettyacademy.com/api/ecom/auth/login", {data: loginPayLoad});
-    await expect(loginResponse.ok()).toBeTruthy();
-    const loginResponseJson = await loginResponse.json();
-    token = await loginResponseJson.token;
-
-    // place an order and get the orderId 
-    const orderResponse = await apiContext.post("https://rahulshettyacademy.com/api/ecom/order/create-order", 
-    {
-        data: orderPayLoad,
-        headers: {
-            'Authorization': token,
-            'Content-Type': 'application/json'
-        },
-    });
-
-    const orderResponseJson = await orderResponse.json();
-    orderId = await orderResponseJson.orders[0];
-    await console.log(orderId);
-    
+    // login
+    const apiUtils = new APIUtils(apiContext, loginPayLoad);
+    // create an order
+    response = await apiUtils.createOrder(orderPayLoad);
 
 });
 
-test.beforeEach( ()=>
-{
-    
-});
 
-test('Client App Login', async ({page})=>
+test('Place the order', async ({page})=>
     {
-        // lauch the window using the token created at test.beforeAll 
+        
+        
         // a function take the second argument, pass it to the first function, set it as Local Storage value
         page.addInitScript(value => {
             window.localStorage.setItem('token', value);
-        }, token);
+        }, response.token);
 
-        await page.goto("https://rahulshettyacademy.com/client");
 
+        await page.goto("https://rahulshettyacademy.com/client/");
         //Verify the order ID is displayed in user's orders
         await page.locator("button[routerlink*='myorders']").click();
         await page.locator("tbody").waitFor();
@@ -60,16 +42,14 @@ test('Client App Login', async ({page})=>
         for (let i = 0; i < await rows.count(); ++i) 
         {
            const rowOrderId = await rows.nth(i).locator("th").textContent();
-           if (orderId.includes(rowOrderId)) 
+           if (response.orderId.includes(rowOrderId)) 
             {
               await rows.nth(i).locator("button").first().click();
               break;
             }
         }
         const orderIdDetails = await page.locator(".col-text").textContent();
-        expect(orderId.includes(orderIdDetails)).toBeTruthy();
+        expect(response.orderId.includes(orderIdDetails)).toBeTruthy();
     
     });
     
-    // Verify if order created is showing in history page
-    // Preconditiion - create order
