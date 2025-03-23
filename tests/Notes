@@ -8,3 +8,6 @@ npx playwright codegen http://www.google.com
 
 To open an UI test runner - 
 npx playwright test --ui
+
+Run API debug -
+Create a breakpoint, at the top, run "> Debug: Debug npm script"

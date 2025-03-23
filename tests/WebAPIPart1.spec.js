@@ -26,7 +26,6 @@ test.beforeAll( async()=>
 test('Place the order', async ({page})=>
     {
         
-        
         // a function take the second argument, pass it to the first function, set it as Local Storage value
         page.addInitScript(value => {
             window.localStorage.setItem('token', value);
