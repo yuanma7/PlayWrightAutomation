@@ -36,7 +36,7 @@ export default defineConfig({
     // baseURL: 'http://127.0.0.1:3000',
     browserName : 'chromium',
     screenshot : 'on',
-    trace: 'retain-on-failure',// only get trace for failed test
+    trace: 'on',// only get trace for failed test, on, off, retain-on-failure
   },
 
   /* Configure projects for major browsers */
