@@ -24,5 +24,25 @@ test("Popup Validations", async({page})=>
     const textCheck = await framesPage.locator(".text h2").textContent();
     console.log(textCheck.split(" ")[1]);// split the sentence by space, the results is an array, select the number part
 
+});
 
-})
+test("Screenshot & Visual Comparision", async({page})=>
+{
+    await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
+    await expect(page.locator("#displayed-text")).toBeVisible();
+    await page.locator('#displayed-text').screenshot({path: 'screenshot partial.png'});// take a screenshot of the element
+    await page.locator("#hide-textbox").click();
+    await page.screenshot({path: 'screenshot.png'}); // save a screenshot of the page
+
+    await expect(page.locator("#displayed-text")).toBeHidden();
+
+}
+);
+
+test.only("Visual Testing", async({page})=>
+{
+    await page.goto("https://www.google.com/");
+    expect(await page.screenshot()).toMatchSnapshot('landing.png');
+
+}
+);
