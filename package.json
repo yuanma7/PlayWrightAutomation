@@ -8,7 +8,7 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "description": "Course - https://www.udemy.com/course/playwright-tutorials-automation-testing/",
   "devDependencies": {
     "@eslint/js": "^9.22.0",
     "@playwright/test": "^1.50.1",
@@ -16,5 +16,19 @@
     "eslint": "^9.22.0",
     "globals": "^16.0.0",
     "typescript-eslint": "^8.27.0"
-  }
+  },
+  "dependencies": {
+    "exceljs": "^4.4.0"
+  },
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuanma7/PlayWrightAutomation.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yuanma7/PlayWrightAutomation/issues"
+  },
+  "homepage": "https://github.com/yuanma7/PlayWrightAutomation#readme"
 }
