@@ -44,7 +44,8 @@ test('Upload download excel validation',async ({page})=>
   await page.goto("https://rahulshettyacademy.com/upload-download-test/index.html");
   const downloadPromise = page.waitForEvent('download');
   await page.getByRole('button',{name:'Download'}).click();
-  await downloadPromise;
+  const download = await downloadPromise;
+  await download.saveAs("D:\\Udemy\\PlayWrightAutomation\\download.xlsx");
   writeExcelTest(textSearch,updateValue,{rowChange:0,colChange:2},"D:\\Udemy\\PlayWrightAutomation\\download.xlsx");
   await page.locator("#fileinput").click();
   await page.locator("#fileinput").setInputFiles("D:\\Udemy\\PlayWrightAutomation\\download.xlsx");
