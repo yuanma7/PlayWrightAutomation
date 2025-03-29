@@ -102,7 +102,7 @@ test('Client App Login', async ({page})=>
     {
         if(await products.nth(i).locator("b").textContent() === productName)
         {
-            // add to card
+            // add to cart
             await products.nth(i).locator("text=Add To Cart").click();
             break;
         }
