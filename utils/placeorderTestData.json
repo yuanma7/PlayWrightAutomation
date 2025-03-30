@@ -1,5 +1,12 @@
-{
-    "username" : "mayuanmyra@gmail.com",
-    "password" : "Test_123",
-    "productName" : "ZARA COAT 3"
-}
+[    
+    {
+        "username" : "mayuanmyra@gmail.com",
+        "password" : "Test_123",
+        "productName" : "ZARA COAT 3"
+    },
+    {
+        "username" : "mayuanmyra@gmail.com",
+        "password" : "Test_123",
+        "productName" : "ADIDAS ORIGINAL"
+    }
+]
