@@ -36,7 +36,7 @@ for (const data of dataSet) {
 
     });
 
-    customtest.only(`Client App Login 2 ${data.productName}`, async ({ page, testDataforOrder }) => {
+    customtest(`Client App Login 2 ${data.productName}`, async ({ page, testDataforOrder }) => {
         const poManager = new POManager(page);
 
         const products = page.locator(".card-body");

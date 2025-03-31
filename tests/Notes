@@ -14,3 +14,6 @@ npx playwright test --ui
 
 Run API debug -
 Create a breakpoint, at the top, run "> Debug: Debug npm script"
+
+To generate allure test result report
+npx playwright test --reporter=line,allure-playwright

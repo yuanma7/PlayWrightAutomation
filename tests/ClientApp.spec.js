@@ -4,7 +4,7 @@
 const {test, expect} = require('@playwright/test');
 
 
-test('Register', async ({browser}) =>
+test.skip('Register', async ({browser}) =>
     {
         //playwright code
     

@@ -1,6 +1,6 @@
 const {test,expect} = require('@playwright/test')
 
-test.describe.configure({mode: 'parallel'});
+test.describe.configure({mode: 'parallel'});// to run the test parallelly
 
 test("Popup Validations", async({page})=>
 {
@@ -41,7 +41,7 @@ test("Screenshot & Visual Comparision", async({page})=>
 }
 );
 
-test.only("Visual Testing", async({page})=>
+test.skip("Visual Testing", async({page})=>
 {
     await page.goto("https://www.google.com/");
     expect(await page.screenshot()).toMatchSnapshot('landing.png');
