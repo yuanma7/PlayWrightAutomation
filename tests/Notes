@@ -3,6 +3,9 @@
 To run a test file in debug mode -
 npx playwright test tests/WebAPIPart2.spec.js --debug
 
+Run a test using specific config file - 
+ -- config playwright.config.js
+
 To auto generate playwright code which tracking manual actions -
 npx playwright codegen http://www.google.com
 
