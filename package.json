@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "regression" : "npx playwright test",
-    "webTests" : "npx playwright test --grep @Web",
-    "APITests" : "npx playwright test --grep @API"
+    "regression": "npx playwright test",
+    "webTests": "npx playwright test --grep @Web",
+    "APITests": "npx playwright test --grep @API"
   },
   "keywords": [],
   "author": "",
@@ -21,6 +21,7 @@
     "typescript-eslint": "^8.27.0"
   },
   "dependencies": {
+    "@cucumber/cucumber": "^11.2.0",
     "exceljs": "^4.4.0"
   },
   "directories": {

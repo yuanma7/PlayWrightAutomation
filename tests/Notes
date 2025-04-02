@@ -19,3 +19,6 @@ To generate allure test result report
 npx playwright test --reporter='line,allure-playwright'
 allure generate ./allure-results -o ./allure-report
 allure open ./allure-report
+
+To run cucumber
+npx cucumber-js
