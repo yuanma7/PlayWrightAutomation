@@ -2,7 +2,7 @@ const {test,expect} = require('@playwright/test')
 
 test.describe.configure({mode: 'parallel'});// to run the test parallelly
 
-test("Popup Validations", async({page})=>
+test("@Web Popup Validations", async({page})=>
 {
     await page.goto("https://rahulshettyacademy.com/AutomationPractice/");
     //await page.goto("https://google.com");

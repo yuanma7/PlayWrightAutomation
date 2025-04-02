@@ -91,7 +91,7 @@ test('Client App Login', async ({})=>
     
     });
 
-    test('Test case 2', async ({})=>
+    test('@API Test case 2', async ({})=>
         {
             const productName = 'ZARA COAT 3';
             const page = await webContext.newPage(); // login details will be created in test before all method, and used when creating new page
