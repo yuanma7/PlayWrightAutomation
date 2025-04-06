@@ -46,3 +46,18 @@ Then('Verify order in present in the OrderHistory', {timeout: 100 * 1000}, async
     await ordersHistoryPage.searchOrderAndSelect(this.orderId);
     expect(this.orderId.includes(await ordersHistoryPage.getOrderId())).toBeTruthy();
 });
+
+Given('a login to Ecommerce2 application with {string} and {string}', { timeout: 100 * 1000 }, async function (username, password) {
+
+    // page.route('**/*.{jpg,png,jpeg}',route=> route.abort());
+    const userName = this.page.locator('#username');
+    const signIn = this.page.locator("#signInBtn");
+    const cardTitles = this.page.locator(".card-body a");
+    await this.page.goto("https://rahulshettyacademy.com/loginpagePractise/");
+    console.log(await this.page.title());
+    //css 
+    await userName.fill("rahulshetty");
+    await this.page.locator("[type='password']").fill("learning");
+    await signIn.click();
+  });
+  
